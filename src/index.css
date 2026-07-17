@@ -211,11 +211,10 @@ html::-webkit-scrollbar {
   overflow: hidden;
 }
 
-@keyframes demo-border-sweep {
-  0% { opacity: 0; --demo-sweep-angle: -80deg; }
-  12% { opacity: 1; }
-  82% { opacity: 1; }
-  100% { opacity: 0; --demo-sweep-angle: 280deg; }
+@keyframes demo-corner-glint {
+  0% { opacity: 0; background-position: -78px -78px; }
+  35% { opacity: 1; }
+  100% { opacity: 0; background-position: -18px -18px; }
 }
 
 @keyframes demo-content-reveal {
@@ -228,33 +227,52 @@ html::-webkit-scrollbar {
   isolation: isolate;
 }
 
-@property --demo-sweep-angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: -80deg;
-}
-
-.demo-entrance::before {
+.demo-entrance::before,
+.demo-chat-glint::before {
   position: absolute;
   z-index: 2;
   inset: 0;
   padding: 1px;
   border-radius: inherit;
-  background: conic-gradient(from var(--demo-sweep-angle),
-    transparent 0 76%,
-    oklch(0.58 0.23 295 / 20%) 84%,
-    oklch(0.95 0.04 295) 90%,
-    transparent 97%
+  background: radial-gradient(
+    circle,
+    oklch(0.98 0.01 295) 0,
+    oklch(0.7 0.17 295 / 75%) 24%,
+    transparent 68%
   );
+  background-repeat: no-repeat;
+  background-size: 110px 110px;
   content: "";
   pointer-events: none;
-  animation: demo-border-sweep 1.2s var(--ease-soft) both;
+  animation: demo-corner-glint 0.9s var(--ease-soft) both;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask-composite: exclude;
 }
 
+.demo-chat-glint {
+  position: absolute;
+  z-index: 2;
+  inset: 36px 0 0 44px;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  border-radius: var(--radius-lg) 0 0;
+  pointer-events: none;
+}
+
+.demo-chat-glint::before {
+  animation-delay: 0.18s;
+}
+
 .demo-entrance-content {
-  animation: demo-content-reveal 0.5s var(--ease-premium) 1.15s both;
+  animation: demo-content-reveal 0.5s var(--ease-premium) 1.25s both;
+}
+
+@media (min-width: 1280px) {
+  .demo-chat-glint { left: 208px; }
+}
+
+@media (max-width: 767px) {
+  .demo-chat-glint { left: 0; border-left: 0; border-radius: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

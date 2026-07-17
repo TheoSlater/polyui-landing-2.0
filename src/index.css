@@ -212,9 +212,9 @@ html::-webkit-scrollbar {
 }
 
 @keyframes demo-border-glint {
-  0% { opacity: 0; stroke-dashoffset: 0.45; }
+  0% { opacity: 0; --demo-border-angle: 235deg; }
   12%, 88% { opacity: 1; }
-  100% { opacity: 0; stroke-dashoffset: -1; }
+  100% { opacity: 0; --demo-border-angle: 360deg; }
 }
 
 @keyframes demo-content-reveal {
@@ -227,24 +227,30 @@ html::-webkit-scrollbar {
   isolation: isolate;
 }
 
-.demo-border-glint {
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  width: 170px;
-  height: 118px;
-  overflow: visible;
-  pointer-events: none;
+@property --demo-border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 235deg;
 }
 
-.demo-border-glint path {
-  fill: none;
-  stroke: oklch(0.98 0.01 295);
-  stroke-width: 1;
-  stroke-linecap: round;
-  stroke-dasharray: 0.45 1;
-  vector-effect: non-scaling-stroke;
+.demo-entrance::before,
+.demo-chat-glint::before {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--demo-border-angle) at 50% 50%,
+    oklch(0.98 0.01 295) 0deg,
+    transparent 24deg,
+    transparent 336deg,
+    oklch(0.98 0.01 295) 360deg
+  );
+  content: "";
+  pointer-events: none;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
   animation: demo-border-glint 1.5s linear both;
 }
 
@@ -259,7 +265,7 @@ html::-webkit-scrollbar {
   pointer-events: none;
 }
 
-.demo-chat-glint .demo-border-glint path {
+.demo-chat-glint::before {
   animation-delay: 0.2s;
 }
 

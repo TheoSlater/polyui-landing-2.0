@@ -4,14 +4,6 @@ import { DemoSidebar } from "./DemoSidebar";
 import { DemoConversation } from "./DemoConversation";
 import { DemoBrowserViewport } from "./DemoBrowserViewport";
 
-function BorderGlint({ radius }: { radius: number }) {
-  return (
-    <svg aria-hidden="true" className="demo-border-glint" viewBox="0 0 170 118">
-      <path d={`M 1 117 V ${radius + 1} A ${radius} ${radius} 0 0 1 ${radius + 1} 1 H 169`} pathLength={1} />
-    </svg>
-  );
-}
-
 /** The interactive product demo: desktop window frame, shown mid-conversation. */
 export function PolyDemoWindow() {
   // Drawer starts open only where it can sit beside the chat (lg+); on
@@ -50,10 +42,7 @@ export function PolyDemoWindow() {
           </div>
         </div>
       </div>
-      <BorderGlint radius={14} />
-      <div aria-hidden="true" className="demo-chat-glint">
-        <BorderGlint radius={10} />
-      </div>
+      <div aria-hidden="true" className="demo-chat-glint" />
     </div>
   );
 }

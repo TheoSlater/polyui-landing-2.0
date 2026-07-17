@@ -233,7 +233,7 @@ html::-webkit-scrollbar {
   z-index: 2;
   top: 0;
   left: 0;
-  width: 72px;
+  width: 120px;
   height: 1px;
   background: linear-gradient(to right, transparent, oklch(0.98 0.01 295), transparent);
   content: "";

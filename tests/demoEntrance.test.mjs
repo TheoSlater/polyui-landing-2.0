@@ -13,7 +13,11 @@ test("demo sweeps its border before revealing content", () => {
   assert.match(css, /@keyframes demo-border-glint/);
   assert.match(css, /@keyframes demo-content-reveal/);
   assert.doesNotMatch(css, /radial-gradient/);
-  assert.match(css, /offset-path:\s*path\(/);
+  assert.match(component, /demo-border-glint/);
+  assert.match(component, /radius=\{14\}/);
+  assert.match(component, /radius=\{10\}/);
+  assert.match(css, /stroke-dasharray/);
+  assert.doesNotMatch(css, /offset-path/);
   assert.match(css, /animation:\s*demo-border-glint 1\.5s linear/);
   assert.doesNotMatch(css, /@keyframes demo-glint-right/);
   assert.doesNotMatch(css, /conic-gradient\(from var\(--demo-sweep-angle\)/);

@@ -212,9 +212,9 @@ html::-webkit-scrollbar {
 }
 
 @keyframes demo-border-glint {
-  0% { opacity: 0; offset-distance: 0%; }
+  0% { opacity: 0; stroke-dashoffset: 0.45; }
   12%, 88% { opacity: 1; }
-  100% { opacity: 0; offset-distance: 100%; }
+  100% { opacity: 0; stroke-dashoffset: -1; }
 }
 
 @keyframes demo-content-reveal {
@@ -227,19 +227,24 @@ html::-webkit-scrollbar {
   isolation: isolate;
 }
 
-.demo-entrance::before,
-.demo-chat-glint::before {
+.demo-border-glint {
   position: absolute;
   z-index: 2;
   top: 0;
   left: 0;
-  width: 120px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, oklch(0.98 0.01 295), transparent);
-  content: "";
+  width: 170px;
+  height: 118px;
+  overflow: visible;
   pointer-events: none;
-  offset-path: path("M 0 116 L 0 14 Q 0 0 14 0 L 168 0");
-  offset-rotate: auto;
+}
+
+.demo-border-glint path {
+  fill: none;
+  stroke: oklch(0.98 0.01 295);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-dasharray: 0.45 1;
+  vector-effect: non-scaling-stroke;
   animation: demo-border-glint 1.5s linear both;
 }
 
@@ -254,7 +259,7 @@ html::-webkit-scrollbar {
   pointer-events: none;
 }
 
-.demo-chat-glint::before {
+.demo-chat-glint .demo-border-glint path {
   animation-delay: 0.2s;
 }
 

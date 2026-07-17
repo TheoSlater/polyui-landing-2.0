@@ -211,10 +211,16 @@ html::-webkit-scrollbar {
   overflow: hidden;
 }
 
-@keyframes demo-corner-glint {
-  0% { opacity: 0; background-position: -78px -78px; }
-  35% { opacity: 1; }
-  100% { opacity: 0; background-position: -18px -18px; }
+@keyframes demo-glint-up {
+  0% { opacity: 0; transform: translateY(82px); }
+  18%, 78% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-24px); }
+}
+
+@keyframes demo-glint-right {
+  0% { opacity: 0; transform: translateX(-44px); }
+  18%, 78% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(82px); }
 }
 
 @keyframes demo-content-reveal {
@@ -228,25 +234,33 @@ html::-webkit-scrollbar {
 }
 
 .demo-entrance::before,
-.demo-chat-glint::before {
+.demo-entrance::after,
+.demo-chat-glint::before,
+.demo-chat-glint::after {
   position: absolute;
   z-index: 2;
-  inset: 0;
-  padding: 1px;
-  border-radius: inherit;
-  background: radial-gradient(
-    circle,
-    oklch(0.98 0.01 295) 0,
-    oklch(0.7 0.17 295 / 75%) 24%,
-    transparent 68%
-  );
-  background-repeat: no-repeat;
-  background-size: 110px 110px;
   content: "";
   pointer-events: none;
-  animation: demo-corner-glint 0.9s var(--ease-soft) both;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
+}
+
+.demo-entrance::before,
+.demo-chat-glint::before {
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to top, transparent, oklch(0.98 0.01 295), transparent);
+  animation: demo-glint-up 0.46s var(--ease-soft) both;
+}
+
+.demo-entrance::after,
+.demo-chat-glint::after {
+  top: 0;
+  left: 0;
+  width: 44px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, oklch(0.98 0.01 295), transparent);
+  animation: demo-glint-right 0.46s var(--ease-soft) 0.44s both;
 }
 
 .demo-chat-glint {
@@ -256,11 +270,16 @@ html::-webkit-scrollbar {
   border-top: 1px solid var(--border);
   border-left: 1px solid var(--border);
   border-radius: var(--radius-lg) 0 0;
+  overflow: hidden;
   pointer-events: none;
 }
 
 .demo-chat-glint::before {
   animation-delay: 0.18s;
+}
+
+.demo-chat-glint::after {
+  animation-delay: 0.62s;
 }
 
 .demo-entrance-content {

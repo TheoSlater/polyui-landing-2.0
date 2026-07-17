@@ -211,16 +211,10 @@ html::-webkit-scrollbar {
   overflow: hidden;
 }
 
-@keyframes demo-glint-up {
-  0% { opacity: 0; transform: translateY(82px); }
-  18%, 78% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(-24px); }
-}
-
-@keyframes demo-glint-right {
-  0% { opacity: 0; transform: translateX(-44px); }
-  18%, 78% { opacity: 1; }
-  100% { opacity: 0; transform: translateX(82px); }
+@keyframes demo-border-glint {
+  0% { opacity: 0; offset-distance: 0%; }
+  12%, 88% { opacity: 1; }
+  100% { opacity: 0; offset-distance: 100%; }
 }
 
 @keyframes demo-content-reveal {
@@ -234,33 +228,19 @@ html::-webkit-scrollbar {
 }
 
 .demo-entrance::before,
-.demo-entrance::after,
-.demo-chat-glint::before,
-.demo-chat-glint::after {
+.demo-chat-glint::before {
   position: absolute;
   z-index: 2;
-  content: "";
-  pointer-events: none;
-}
-
-.demo-entrance::before,
-.demo-chat-glint::before {
   top: 0;
   left: 0;
-  width: 1px;
-  height: 44px;
-  background: linear-gradient(to top, transparent, oklch(0.98 0.01 295), transparent);
-  animation: demo-glint-up 0.46s var(--ease-soft) both;
-}
-
-.demo-entrance::after,
-.demo-chat-glint::after {
-  top: 0;
-  left: 0;
-  width: 44px;
+  width: 72px;
   height: 1px;
   background: linear-gradient(to right, transparent, oklch(0.98 0.01 295), transparent);
-  animation: demo-glint-right 0.46s var(--ease-soft) 0.44s both;
+  content: "";
+  pointer-events: none;
+  offset-path: path("M 0 116 L 0 14 Q 0 0 14 0 L 168 0");
+  offset-rotate: auto;
+  animation: demo-border-glint 1.5s linear both;
 }
 
 .demo-chat-glint {
@@ -275,15 +255,11 @@ html::-webkit-scrollbar {
 }
 
 .demo-chat-glint::before {
-  animation-delay: 0.18s;
-}
-
-.demo-chat-glint::after {
-  animation-delay: 0.62s;
+  animation-delay: 0.2s;
 }
 
 .demo-entrance-content {
-  animation: demo-content-reveal 0.5s var(--ease-premium) 1.25s both;
+  animation: demo-content-reveal 0.5s var(--ease-premium) 1.75s both;
 }
 
 @media (min-width: 1280px) {

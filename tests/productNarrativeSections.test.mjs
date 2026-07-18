@@ -22,12 +22,14 @@ test("product narrative renders approved sections in order", () => {
   assert.doesNotMatch(sections, /\d{2}\s*·/);
   assert.doesNotMatch(sections, /md:grid-cols-3/);
   assert.doesNotMatch(sections, /AgentPanel|BrowserPanel/);
-  assert.match(sections, /cdn\.simpleicons\.org\/openai/);
+  assert.match(sections, /logo: "\/openai-blossom\.svg"/);
+  assert.doesNotMatch(sections, /cdn\.simpleicons\.org\/openai/);
   assert.match(sections, /cdn\.simpleicons\.org\/anthropic/);
   assert.match(sections, /cdn\.simpleicons\.org\/googlegemini/);
   assert.match(sections, /cdn\.simpleicons\.org\/ollama/);
   assert.match(sections, /src="\/polyui-demo\.png"/);
   assert.match(sections, /alt="Poly UI desktop app with chat and browser panels"/);
+  assert.doesNotMatch(sections, /id="browser"[\s\S]*?ml-auto/);
 });
 
 test("app renders the product narrative instead of temporary sections", () => {

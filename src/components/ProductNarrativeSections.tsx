@@ -4,7 +4,7 @@ import { GithubIcon } from "@/components/GithubIcon";
 import { Button } from "@/components/ui/button";
 
 const providers = [
-  { name: "OpenAI", logo: "https://cdn.simpleicons.org/openai/ffffff" },
+  { name: "OpenAI", logo: "/openai-blossom.svg" },
   { name: "Anthropic", logo: "https://cdn.simpleicons.org/anthropic/ffffff" },
   {
     name: "Google Gemini",
@@ -116,7 +116,7 @@ export function ProductNarrativeSections() {
         className="mx-auto max-w-6xl px-4 pt-30 sm:px-6 sm:pt-48"
         {...reveal}
       >
-        <div className="ml-auto max-w-2xl border-l border-border/70 pl-7 sm:pl-12">
+        <div className="border-l border-border/70 pl-7 sm:pl-12">
           <h2 className="font-heading text-4xl font-medium leading-[0.95] tracking-[-0.05em] sm:text-6xl">
             The web, inside the workspace.
           </h2>

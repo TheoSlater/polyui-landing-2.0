@@ -16,7 +16,7 @@ export function HeroWireframe() {
           <BlurIn>
             <h1 className="font-heading text-5xl font-semibold tracking-tight text-balance leading-[1.1] pb-1 sm:text-6xl xl:text-7xl">
               One interface for{" "}
-              <em className="font-serif font-medium italic">every</em> AI model.
+              <em className="font-accent font-normal italic">every</em> AI model.
             </h1>
           </BlurIn>
           <BlurIn delay={3.55} className="flex flex-col gap-6 lg:items-end lg:text-right">

@@ -20,3 +20,14 @@ test("product narrative renders approved sections in order", () => {
   assert.match(sections, /https:\/\/github\.com\/monolabsdev\/poly-ui/);
   assert.match(sections, /target="_blank"\s+rel="noopener noreferrer"/);
 });
+
+test("app renders the product narrative instead of temporary sections", () => {
+  const app = readFileSync("src/App.tsx", "utf8");
+
+  assert.match(
+    app,
+    /import \{ ProductNarrativeSections \} from "@\/components\/ProductNarrativeSections"/,
+  );
+  assert.match(app, /<ProductNarrativeSections \/>/);
+  assert.doesNotMatch(app, /SectionPlaceholder|PLACEHOLDER_SECTIONS/);
+});

@@ -1,5 +1,6 @@
 import { ArrowUpRight, FileText, Search, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
+import { DownloadRelease } from "@/components/DownloadRelease";
 import { GithubIcon } from "@/components/GithubIcon";
 import { Button } from "@/components/ui/button";
 
@@ -161,12 +162,9 @@ export function ProductNarrativeSections() {
 
           <div
             id="downloads"
-            className="mt-12 flex flex-col gap-4 border-t border-border/50 pt-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between"
+            className="mt-12 border-t border-border/50 pt-10"
           >
-            <span>Desktop downloads are coming soon.</span>
-            <Button variant="ghost" size="sm" disabled>
-              Download unavailable
-            </Button>
+            <DownloadRelease />
           </div>
         </div>
       </motion.section>

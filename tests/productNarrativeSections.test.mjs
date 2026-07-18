@@ -30,6 +30,9 @@ test("product narrative renders approved sections in order", () => {
   assert.match(sections, /src="\/polyui-demo\.png"/);
   assert.match(sections, /alt="Poly UI desktop app with chat and browser panels"/);
   assert.doesNotMatch(sections, /id="browser"[\s\S]*?ml-auto/);
+  assert.match(sections, /import \{ DownloadRelease \}/);
+  assert.match(sections, /<DownloadRelease \/>/);
+  assert.doesNotMatch(sections, /Desktop downloads are coming soon|Download unavailable/);
 });
 
 test("app renders the product narrative instead of temporary sections", () => {

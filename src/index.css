@@ -212,7 +212,7 @@ html::-webkit-scrollbar {
 }
 
 @keyframes demo-border-glint {
-  0% { opacity: 0; --demo-border-angle: 292deg; }
+  0% { opacity: 0; --demo-border-angle: 286deg; }
   12%, 88% { opacity: 1; }
   100% { opacity: 0; --demo-border-angle: 360deg; }
 }
@@ -230,7 +230,7 @@ html::-webkit-scrollbar {
 @property --demo-border-angle {
   syntax: "<angle>";
   inherits: false;
-  initial-value: 292deg;
+  initial-value: 286deg;
 }
 
 .demo-entrance::before,

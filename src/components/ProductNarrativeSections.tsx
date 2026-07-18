@@ -162,7 +162,7 @@ export function ProductNarrativeSections() {
 
           <div
             id="downloads"
-            className="mt-12 border-t border-border/50 pt-10"
+            className="mt-12 scroll-mt-20 border-t border-border/50 pt-10"
           >
             <DownloadRelease />
           </div>

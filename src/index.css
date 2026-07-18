@@ -291,6 +291,9 @@ html::-webkit-scrollbar {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: smooth !important;
+  }
   .animate-spin,
   .animate-thinking,
   .poly-shimmer {

@@ -25,7 +25,7 @@ export function HeroWireframe() {
               use agents from one focused desktop workspace.
             </p>
             <div className="flex flex-wrap items-center gap-3 lg:justify-end">
-              <Button size="lg" render={<a href="#" />} nativeButton={false}>
+              <Button size="lg" render={<a href="#downloads" />} nativeButton={false}>
                 <Download data-icon="inline-start" size={15} />
                 Download Poly UI
               </Button>

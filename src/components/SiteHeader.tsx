@@ -29,7 +29,7 @@ export function SiteHeader() {
           <Button variant="outline" size="icon-sm" render={<a href="https://github.com/monolabsdev/poly-ui" target="_blank" rel="noopener noreferrer" aria-label="GitHub" />} nativeButton={false}>
             <GithubIcon size={14} />
           </Button>
-          <Button size="sm" render={<a href="#" />} nativeButton={false}>
+          <Button size="sm" render={<a href="#downloads" />} nativeButton={false}>
             <Download data-icon="inline-start" size={14} />
             Download
           </Button>

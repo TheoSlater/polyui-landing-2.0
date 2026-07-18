@@ -14,6 +14,7 @@ test("demo sweeps its border before revealing content", () => {
   assert.match(component, /demo-chat-glint/);
   assert.match(component, /demo-entrance-content/);
   assert.match(css, /@keyframes demo-border-glint/);
+  assert.match(css, /--demo-border-angle:\s*270deg/);
   assert.match(css, /@keyframes demo-content-reveal/);
   assert.doesNotMatch(css, /radial-gradient/);
   assert.doesNotMatch(component, /demo-border-glint/);

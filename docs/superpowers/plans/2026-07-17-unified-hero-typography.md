@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Hero and headings use General Sans at weight 600.
+- Hero and headings use General Sans at weight 500.
 - Body copy, navigation, buttons, and UI labels use Manrope.
 - Hero remains exactly two lines with line-height `0.92` and letter-spacing `-0.055em`.
 - No italic, serif, pixel, gradient, shadow, or decorative font switching in the hero.
@@ -46,14 +46,14 @@ test("hero uses only General Sans while website UI uses Manrope", () => {
   assert.ok(pkg.dependencies["@fontsource-variable/manrope"]);
   assert.equal(pkg.dependencies["@fontsource-variable/inter"], undefined);
   assert.equal(pkg.dependencies["@fontsource-variable/space-grotesk"], undefined);
-  assert.match(css, /api\.fontshare\.com\/v2\/css\?f\[\]=general-sans@600/);
+  assert.match(css, /api\.fontshare\.com\/v2\/css\?f\[\]=general-sans@500/);
   assert.match(css, /@fontsource-variable\/manrope/);
   assert.doesNotMatch(css, /Departure Mono|space-grotesk/);
   assert.match(css, /--font-heading:\s*"General Sans"/);
   assert.match(css, /--font-sans:\s*"Manrope Variable"/);
   assert.match(css, /font-family:\s*"Manrope Variable"/);
   assert.match(hero, /font-heading/);
-  assert.match(hero, /font-semibold/);
+  assert.match(hero, /font-medium/);
   assert.match(hero, /leading-\[0\.92\]/);
   assert.match(hero, /tracking-\[-0\.055em\]/);
   assert.match(hero, /<span className="block">One interface for<\/span>/);
@@ -85,7 +85,7 @@ Expected: `package.json` and `bun.lock` contain Manrope and no longer contain In
 Set the top of `src/index.css` to:
 
 ```css
-@import url("https://api.fontshare.com/v2/css?f[]=general-sans@600&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=general-sans@500&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -116,7 +116,7 @@ body {
 Replace the heading in `src/components/HeroWireframe.tsx` with:
 
 ```tsx
-<h1 className="text-left font-heading text-5xl font-semibold leading-[0.92] tracking-[-0.055em] pb-1 sm:text-6xl xl:text-7xl">
+<h1 className="text-left font-heading text-5xl font-medium leading-[0.92] tracking-[-0.055em] pb-1 sm:text-6xl xl:text-7xl">
   <span className="block">One interface for</span>
   <span className="block">every AI model.</span>
 </h1>

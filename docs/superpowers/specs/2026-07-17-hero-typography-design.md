@@ -20,7 +20,7 @@ One interface for
 every AI model.
 ```
 
-Use General Sans at weight 600, line-height `0.92`, and letter-spacing `-0.055em`. Preserve the current responsive scale and two explicit block lines. Remove the accent element, italic styling, font switching, relative positioning, and custom inter-word spacing.
+Use General Sans at weight 500, line-height `0.92`, and letter-spacing `-0.055em`. Preserve the current responsive scale and two explicit block lines. Remove the accent element, italic styling, font switching, relative positioning, and custom inter-word spacing.
 
 ## Scope
 

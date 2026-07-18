@@ -12,14 +12,14 @@ test("hero uses only General Sans while website UI uses Manrope", () => {
   assert.equal(pkg.dependencies["@fontsource-variable/space-grotesk"], undefined);
   assert.equal(pkg.dependencies["@fontsource-variable/newsreader"], undefined);
   assert.equal(pkg.dependencies["@fontsource/instrument-serif"], undefined);
-  assert.match(css, /api\.fontshare\.com\/v2\/css\?f\[\]=general-sans@600/);
+  assert.match(css, /api\.fontshare\.com\/v2\/css\?f\[\]=general-sans@500/);
   assert.match(css, /@fontsource-variable\/manrope/);
   assert.doesNotMatch(css, /Departure Mono|space-grotesk/);
   assert.match(css, /--font-heading:\s*"General Sans"/);
   assert.match(css, /--font-sans:\s*"Manrope Variable"/);
   assert.match(css, /font-family:\s*"Manrope Variable"/);
   assert.match(hero, /font-heading/);
-  assert.match(hero, /font-semibold/);
+  assert.match(hero, /font-medium/);
   assert.match(hero, /leading-\[0\.92\]/);
   assert.match(hero, /tracking-\[-0\.055em\]/);
   assert.match(hero, /<span className="block">One interface for<\/span>/);

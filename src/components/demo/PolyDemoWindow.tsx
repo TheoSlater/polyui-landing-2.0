@@ -33,7 +33,7 @@ export function PolyDemoWindow() {
 
         <div className="relative flex h-[520px] min-h-0 sm:h-[560px] lg:h-[600px]">
           <DemoSidebar />
-          <div className="relative flex min-w-0 flex-1 overflow-hidden rounded-tl-lg border-l border-t border-border/30 max-md:rounded-tl-none max-md:border-l-0">
+          <div className="relative flex min-w-0 flex-1 overflow-hidden rounded-tl-xl border-l border-t border-border/30 max-md:rounded-tl-none max-md:border-l-0">
             <DemoConversation
               viewportOpen={viewportOpen}
               onOpenViewport={() => setViewportOpen(true)}

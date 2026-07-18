@@ -51,6 +51,10 @@ export function ProductNarrativeSections() {
               <img
                 src={logo}
                 alt={name}
+                width={24}
+                height={24}
+                loading="lazy"
+                decoding="async"
                 className="size-6 opacity-55 grayscale transition-opacity duration-300 hover:opacity-90"
               />
             </div>
@@ -107,6 +111,10 @@ export function ProductNarrativeSections() {
           <img
             src="/polyui-demo.png"
             alt="Poly UI desktop app with chat and browser panels"
+            width={1733}
+            height={1122}
+            loading="lazy"
+            decoding="async"
             className="block h-auto w-full"
           />
         </figure>

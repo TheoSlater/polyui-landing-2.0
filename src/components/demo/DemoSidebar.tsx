@@ -14,30 +14,22 @@ const CONVERSATIONS = [
  */
 export function DemoSidebar() {
   return (
-    <aside className="demo-reveal-sidebar flex h-full w-11 shrink-0 flex-col bg-sidebar px-1.5 py-2 max-md:hidden xl:w-52 xl:px-2">
-      {/*<div className="flex items-center gap-2 px-1 pb-2 xl:justify-between">
-
-        <span className="hidden text-sm font-bold xl:block xl:flex-1">PolyUI</span>
-      </div>*/}
-
+    <aside aria-hidden="true" className="demo-reveal-sidebar flex h-full w-11 shrink-0 flex-col bg-sidebar px-1.5 py-2 max-md:hidden xl:w-52 xl:px-2">
       <SidebarItem icon={<SquarePen size={16} />} label="New Chat" />
       <SidebarItem icon={<Search size={16} />} label="Search" />
 
       <div className="mt-4 hidden min-h-0 flex-1 flex-col xl:flex">
         <p className="px-2 pb-1 text-[11px] font-medium text-muted-foreground/70">Today</p>
         {CONVERSATIONS.map((conversation) => (
-          <button
+          <div
             key={conversation.title}
-            type="button"
             className={cn(
               "truncate rounded-lg px-2 py-1.5 text-left text-[13px] text-sidebar-foreground/90",
-              conversation.active
-                ? "bg-sidebar-accent"
-                : "hover:bg-sidebar-accent/60",
+              conversation.active && "bg-sidebar-accent",
             )}
           >
             {conversation.title}
-          </button>
+          </div>
         ))}
       </div>
 
@@ -50,12 +42,11 @@ export function DemoSidebar() {
 
 function SidebarItem({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
-    <button
-      type="button"
-      className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-[13px] text-sidebar-foreground/90 hover:bg-sidebar-accent/60 max-xl:justify-center max-xl:px-0"
+    <div
+      className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-[13px] text-sidebar-foreground/90 max-xl:justify-center max-xl:px-0"
     >
       <span className="text-muted-foreground">{icon}</span>
       <span className="hidden xl:inline">{label}</span>
-    </button>
+    </div>
   );
 }

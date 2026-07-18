@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Check, Copy, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,6 +27,16 @@ export function DownloadRelease() {
   const [failed, setFailed] = useState(false);
   const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">(
     "idle",
+  );
+  const copyResetTimer = useRef<number | undefined>(undefined);
+
+  useEffect(
+    () => () => {
+      if (copyResetTimer.current !== undefined) {
+        window.clearTimeout(copyResetTimer.current);
+      }
+    },
+    [],
   );
 
   useEffect(() => {
@@ -71,7 +81,10 @@ export function DownloadRelease() {
     try {
       await navigator.clipboard.writeText(command);
       setCopyState("copied");
-      window.setTimeout(() => setCopyState("idle"), 1600);
+      if (copyResetTimer.current !== undefined) {
+        window.clearTimeout(copyResetTimer.current);
+      }
+      copyResetTimer.current = window.setTimeout(() => setCopyState("idle"), 1600);
     } catch {
       setCopyState("failed");
     }

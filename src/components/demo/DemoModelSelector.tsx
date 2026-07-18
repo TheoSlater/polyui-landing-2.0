@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -11,13 +11,24 @@ const MODELS = [
 export function DemoModelSelector() {
   const [open, setOpen] = useState(false);
   const [model, setModel] = useState(MODELS[0].name);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      onKeyDown={(event) => {
+        if (event.key === "Escape") {
+          setOpen(false);
+          triggerRef.current?.focus();
+        }
+      }}
+    >
       <button
+        ref={triggerRef}
         type="button"
         aria-haspopup="listbox"
         aria-expanded={open}
+        aria-controls="demo-model-listbox"
         onClick={() => setOpen((v) => !v)}
         className="inline-flex h-7 items-center gap-1 text-left text-sm font-medium text-foreground transition-colors hover:text-foreground/80"
       >
@@ -29,10 +40,12 @@ export function DemoModelSelector() {
           <button
             type="button"
             aria-label="Close model menu"
+            tabIndex={-1}
             className="fixed inset-0 z-10 cursor-default"
             onClick={() => setOpen(false)}
           />
           <div
+            id="demo-model-listbox"
             role="listbox"
             className="absolute left-0 top-8 z-20 w-60 rounded-xl border border-border bg-popover p-1 shadow-lg"
           >

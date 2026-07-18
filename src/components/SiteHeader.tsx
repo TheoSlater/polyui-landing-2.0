@@ -3,7 +3,15 @@ import { GithubIcon } from "@/components/GithubIcon";
 import { BlurIn } from "@/components/BlurIn";
 import { Button } from "@/components/ui/button";
 
-const NAV_LINKS = ["Features", "Providers", "Docs"];
+const NAV_LINKS = [
+  { label: "Features", href: "#features" },
+  { label: "Providers", href: "#providers" },
+  {
+    label: "Docs",
+    href: "https://github.com/monolabsdev/poly-ui#readme",
+    external: true,
+  },
+];
 
 export function SiteHeader() {
   return (
@@ -14,13 +22,15 @@ export function SiteHeader() {
         </a>
 
         <nav className="mx-auto hidden items-center gap-6 md:flex">
-          {NAV_LINKS.map((link) => (
+          {NAV_LINKS.map(({ label, href, external }) => (
             <a
-              key={link}
-              href="#"
+              key={label}
+              href={href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
-              {link}
+              {label}
             </a>
           ))}
         </nav>

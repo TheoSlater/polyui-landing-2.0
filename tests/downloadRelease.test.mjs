@@ -16,6 +16,7 @@ test("download rail fetches latest release and always keeps a GitHub fallback", 
   assert.match(component, /View latest release/);
   assert.match(component, /Recommended/);
   assert.match(component, /navigator\.clipboard\.writeText\(command\)/);
+  assert.match(component, /clearTimeout\(copyResetTimer\.current\)/);
   assert.match(component, /Copy failed/);
   assert.match(component, /Ubuntu \/ Debian/);
   assert.match(component, /Other distro/);

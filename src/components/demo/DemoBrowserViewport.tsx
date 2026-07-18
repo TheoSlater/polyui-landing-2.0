@@ -16,6 +16,7 @@ export function DemoBrowserViewport({
     <aside
       aria-label="Viewport drawer"
       aria-hidden={!open}
+      inert={!open}
       className={cn(
         "demo-reveal-viewport flex min-h-0 flex-col overflow-hidden border-border bg-sidebar transition-[width,opacity] duration-300",
         "max-lg:absolute max-lg:inset-0 max-lg:z-10 max-lg:transition-[opacity,transform]",
@@ -33,7 +34,7 @@ export function DemoBrowserViewport({
           type="button"
           aria-label="Close viewport"
           onClick={onClose}
-          className="ml-auto flex size-7 items-center justify-center rounded-lg text-muted-foreground hover:bg-sidebar-accent hover:text-foreground"
+          className="relative ml-auto flex size-7 items-center justify-center rounded-lg text-muted-foreground after:absolute after:-inset-2 hover:bg-sidebar-accent hover:text-foreground"
         >
           <X size={15} />
         </button>

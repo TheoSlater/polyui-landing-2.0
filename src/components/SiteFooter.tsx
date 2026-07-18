@@ -13,7 +13,15 @@ export function SiteFooter() {
         <div className="grid gap-16 sm:grid-cols-2 md:grid-cols-[1.5fr_0.75fr_0.75fr]">
           <div className="max-w-xs">
             <div className="flex items-center gap-3">
-              <img src="/polyui-icon.png" alt="" className="size-7" />
+              <img
+                src="/polyui-icon.png"
+                alt=""
+                width={28}
+                height={28}
+                loading="lazy"
+                decoding="async"
+                className="size-7"
+              />
               <span className="text-sm font-semibold tracking-tight">Poly UI</span>
             </div>
             <p className="mt-5 text-sm leading-relaxed text-muted-foreground">

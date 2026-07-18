@@ -19,7 +19,7 @@ export function DemoConversation({
             type="button"
             aria-label="Open viewport drawer"
             onClick={onOpenViewport}
-            className="ml-auto flex size-7 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-foreground/[0.06] hover:text-foreground"
+            className="relative ml-auto flex size-7 items-center justify-center rounded-lg text-muted-foreground transition-colors after:absolute after:-inset-2 hover:bg-foreground/[0.06] hover:text-foreground"
           >
             <PanelRight size={15} />
           </button>

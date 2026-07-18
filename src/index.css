@@ -133,6 +133,15 @@ html {
   scroll-behavior: smooth;
 }
 
+:where(a, button):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+:where(a, button) {
+  touch-action: manipulation;
+}
+
 code {
   font-family: "JetBrains Mono Variable", monospace;
   font-size: 0.9em;
@@ -288,26 +297,6 @@ html::-webkit-scrollbar {
 
 @media (max-width: 767px) {
   .demo-chat-glint { left: 0; border-left: 0; border-radius: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: smooth !important;
-  }
-  .animate-spin,
-  .animate-thinking,
-  .poly-shimmer {
-    animation: none;
-  }
-  .poly-shimmer {
-    background-image: linear-gradient(
-      var(--color-muted-foreground),
-      var(--color-muted-foreground)
-    );
-  }
-  .poly-reveal {
-    transition: none;
-  }
 }
 
 @layer base {

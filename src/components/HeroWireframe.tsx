@@ -17,8 +17,8 @@ export function HeroWireframe() {
             <h1 className="text-left font-heading text-5xl font-semibold leading-[0.92] tracking-[-0.055em] pb-1 sm:text-6xl xl:text-7xl">
               <span className="block">One interface for</span>
               <span className="block">
-                <em className="font-accent text-[0.9em] font-normal not-italic tracking-[-0.035em]">every</em>{" "}
-                AI model.
+                <em className="relative -top-[0.05em] font-accent text-[0.82em] font-bold not-italic tracking-[-0.035em]">every</em>
+                <span className="ml-[0.06em]">AI model.</span>
               </span>
             </h1>
           </BlurIn>

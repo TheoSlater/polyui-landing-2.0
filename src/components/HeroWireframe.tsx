@@ -19,7 +19,7 @@ export function HeroWireframe() {
               <em className="font-serif font-medium italic">every</em> AI model.
             </h1>
           </BlurIn>
-          <BlurIn delay={0.15} className="flex flex-col gap-6 lg:items-end lg:text-right">
+          <BlurIn delay={2.9} className="flex flex-col gap-6 lg:items-end lg:text-right">
             <p className="max-w-md text-base leading-relaxed text-muted-foreground">
               Run local and cloud models, search the web, work with files, and
               use agents from one focused desktop workspace.

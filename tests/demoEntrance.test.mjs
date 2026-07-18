@@ -38,4 +38,5 @@ test("demo sweeps its border before revealing content", () => {
   assert.match(css, /\.demo-reveal-conversation[^}]*animation:[^;]*0\.5s[^;]*1\.94s/s);
   assert.match(css, /\.demo-reveal-viewport[^}]*animation:[^;]*0\.8s[^;]*2\.06s/s);
   assert.doesNotMatch(hero, /<BlurIn delay=\{0\.3\}/);
+  assert.match(hero, /<BlurIn delay=\{2\.9\} className="flex flex-col/);
 });

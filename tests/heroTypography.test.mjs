@@ -23,7 +23,7 @@ test("hero uses only General Sans while website UI uses Manrope", () => {
   assert.match(hero, /leading-\[0\.92\]/);
   assert.match(hero, /tracking-\[-0\.055em\]/);
   assert.match(hero, /<span className="block">One interface for<\/span>/);
-  assert.match(hero, /<span className="block">every AI model\.<\/span>/);
+  assert.match(hero, /<span className="block"><em className="italic">every<\/em> AI model\.<\/span>/);
   assert.equal((hero.match(/<span className="block">/g) ?? []).length, 2);
-  assert.doesNotMatch(hero, /<em|font-accent|italic|font-serif|text-shadow|drop-shadow|bg-clip-text/);
+  assert.doesNotMatch(hero, /font-accent|font-serif|text-shadow|drop-shadow|bg-clip-text/);
 });

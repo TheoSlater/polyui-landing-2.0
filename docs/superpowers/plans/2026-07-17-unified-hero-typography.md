@@ -13,7 +13,7 @@
 - Hero and headings use General Sans at weight 500.
 - Body copy, navigation, buttons, and UI labels use Manrope.
 - Hero remains exactly two lines with line-height `0.92` and letter-spacing `-0.055em`.
-- No italic, serif, pixel, gradient, shadow, or decorative font switching in the hero.
+- Italicize only “every”; use no serif, pixel, gradient, shadow, or decorative font switching in the hero.
 - Preserve layout, motion, colors, demo behavior, and copy.
 
 ---

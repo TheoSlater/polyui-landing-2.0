@@ -1,9 +1,9 @@
+@import url("https://api.fontshare.com/v2/css?f[]=general-sans@600&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
 @import "@fontsource-variable/jetbrains-mono";
-@import "@fontsource-variable/manrope";
 @import "@fontsource-variable/newsreader/wght-italic.css";
 
 /* Dark-locked page. Tokens copied from poly-ui/src/App.css `.dark` block so the
@@ -117,7 +117,7 @@
   --radius-xl: var(--radius-xl);
   --radius-2xl: var(--radius-2xl);
   --radius-3xl: var(--radius-3xl);
-  --font-heading: "Manrope Variable", sans-serif;
+  --font-heading: "General Sans", sans-serif;
   --font-accent: "Newsreader Variable", serif;
   --font-sans: "Geist Variable", sans-serif;
   --font-mono: "JetBrains Mono Variable", monospace;

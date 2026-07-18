@@ -14,9 +14,12 @@ export function HeroWireframe() {
       <div className="mx-auto max-w-6xl px-4 pt-16 pb-16 sm:px-6 sm:pt-24">
         <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-14">
           <BlurIn>
-            <h1 className="font-heading text-5xl font-semibold tracking-tight text-balance leading-[1.1] pb-1 sm:text-6xl xl:text-7xl">
-              One interface for{" "}
-              <em className="font-accent font-normal italic">every</em> AI model.
+            <h1 className="text-left font-heading text-5xl font-semibold leading-[0.92] tracking-[-0.055em] pb-1 sm:text-6xl xl:text-7xl">
+              <span className="block">One interface for</span>
+              <span className="block">
+                <em className="font-accent text-[0.9em] font-normal italic tracking-[-0.035em]">every</em>{" "}
+                AI model.
+              </span>
             </h1>
           </BlurIn>
           <BlurIn delay={3.55} className="flex flex-col gap-6 lg:items-end lg:text-right">

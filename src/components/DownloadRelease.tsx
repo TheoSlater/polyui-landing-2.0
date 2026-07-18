@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Download } from "lucide-react";
+import { ArrowUpRight, Check, Copy, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   detectPlatform,
   formatBytes,
+  installCommand,
   pickDownload,
   type GithubRelease,
+  type LinuxPackage,
   type Platform,
 } from "@/lib/githubRelease";
 
@@ -20,8 +22,12 @@ type NavigatorWithUAData = Navigator & {
 
 export function DownloadRelease() {
   const [platform] = useState<Platform>(detectCurrentPlatform);
+  const [linuxPackage, setLinuxPackage] = useState<LinuxPackage>("deb");
   const [release, setRelease] = useState<GithubRelease | null>(null);
   const [failed, setFailed] = useState(false);
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">(
+    "idle",
+  );
 
   useEffect(() => {
     if (platform === "unsupported" || platform === "unknown") {
@@ -55,45 +61,23 @@ export function DownloadRelease() {
     return () => controller.abort();
   }, [platform]);
 
-  const target = release ? pickDownload(release, platform) : null;
+  const command = installCommand(platform);
+  const target = release
+    ? pickDownload(release, platform, linuxPackage)
+    : null;
 
-  if (release && target) {
-    return (
-      <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <p className="text-xs text-muted-foreground">Latest desktop release</p>
-          <h3 className="mt-2 font-heading text-2xl font-medium tracking-[-0.04em] sm:text-3xl">
-            Download for {target.label}
-          </h3>
-          <p className="mt-3 text-sm text-muted-foreground">
-            {release.tag_name} <span aria-hidden="true">·</span> {target.format}{" "}
-            <span aria-hidden="true">·</span> {formatBytes(target.asset.size)}
-          </p>
-        </div>
-
-        <div className="flex flex-col items-start gap-3 sm:items-end">
-          <Button
-            size="lg"
-            render={<a href={target.asset.browser_download_url} />}
-            nativeButton={false}
-          >
-            <Download data-icon="inline-start" size={15} />
-            Download for {target.label}
-          </Button>
-          <a
-            href={release.html_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-muted-foreground transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-foreground"
-          >
-            All installers
-          </a>
-        </div>
-      </div>
-    );
+  async function copyCommand() {
+    if (!command) return;
+    try {
+      await navigator.clipboard.writeText(command);
+      setCopyState("copied");
+      window.setTimeout(() => setCopyState("idle"), 1600);
+    } catch {
+      setCopyState("failed");
+    }
   }
 
-  if (failed || (release && !target)) {
+  if (!command) {
     return (
       <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
         <div>
@@ -125,14 +109,134 @@ export function DownloadRelease() {
   }
 
   return (
-    <div
-      aria-live="polite"
-      className="flex min-h-20 flex-col gap-3 sm:justify-center"
-    >
-      <p className="text-xs text-muted-foreground">Desktop releases</p>
-      <p className="font-heading text-xl font-medium tracking-[-0.035em]">
-        Finding the latest download for your system…
-      </p>
+    <div className="space-y-10">
+      <div>
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-xs font-medium text-foreground">Recommended</p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Install from your terminal
+            </p>
+          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={copyCommand}
+            aria-live="polite"
+          >
+            {copyState === "copied" ? (
+              <Check data-icon="inline-start" size={14} />
+            ) : (
+              <Copy data-icon="inline-start" size={14} />
+            )}
+            {copyState === "copied"
+              ? "Copied"
+              : copyState === "failed"
+                ? "Copy failed"
+                : "Copy command"}
+          </Button>
+        </div>
+        <div className="mt-4 overflow-x-auto border-y border-border/70 py-4">
+          <code className="select-all whitespace-nowrap font-mono text-xs text-foreground/85 sm:text-sm">
+            {command}
+          </code>
+        </div>
+        {copyState === "failed" ? (
+          <p className="mt-2 text-xs text-muted-foreground">
+            Select the command above and copy it manually.
+          </p>
+        ) : null}
+      </div>
+
+      {platform === "linux" ? (
+        <div>
+          <p className="text-xs text-muted-foreground">
+            Prefer a direct Linux package?
+          </p>
+          <div
+            role="group"
+            aria-label="Linux distribution"
+            className="mt-3 inline-flex rounded-xl border border-border/70 p-1"
+          >
+            <Button
+              variant={linuxPackage === "deb" ? "secondary" : "ghost"}
+              size="sm"
+              aria-pressed={linuxPackage === "deb"}
+              onClick={() => setLinuxPackage("deb")}
+            >
+              Ubuntu / Debian
+            </Button>
+            <Button
+              variant={linuxPackage === "appimage" ? "secondary" : "ghost"}
+              size="sm"
+              aria-pressed={linuxPackage === "appimage"}
+              onClick={() => setLinuxPackage("appimage")}
+            >
+              Other distro
+            </Button>
+          </div>
+        </div>
+      ) : null}
+
+      {release && target ? (
+        <div className="flex flex-col gap-8 border-t border-border/50 pt-8 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-xs text-muted-foreground">Direct installer</p>
+            <h3 className="mt-2 font-heading text-2xl font-medium tracking-[-0.04em] sm:text-3xl">
+              Download for {target.label}
+            </h3>
+            <p className="mt-3 text-sm text-muted-foreground">
+              {release.tag_name} <span aria-hidden="true">·</span> {target.format}{" "}
+              <span aria-hidden="true">·</span> {formatBytes(target.asset.size)}
+            </p>
+          </div>
+          <div className="flex flex-col items-start gap-3 sm:items-end">
+            <Button
+              size="lg"
+              render={<a href={target.asset.browser_download_url} />}
+              nativeButton={false}
+            >
+              <Download data-icon="inline-start" size={15} />
+              Download for {target.label}
+            </Button>
+            <a
+              href={release.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-muted-foreground transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-foreground"
+            >
+              All installers
+            </a>
+          </div>
+        </div>
+      ) : failed || (release && !target) ? (
+        <div className="flex flex-col gap-6 border-t border-border/50 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted-foreground">
+            Need an installer instead? Choose one from the latest GitHub release.
+          </p>
+          <Button
+            variant="outline"
+            render={
+              <a
+                href={LATEST_RELEASE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            }
+            nativeButton={false}
+          >
+            View latest release
+            <ArrowUpRight data-icon="inline-end" size={14} />
+          </Button>
+        </div>
+      ) : (
+        <p
+          aria-live="polite"
+          className="border-t border-border/50 pt-8 text-sm text-muted-foreground"
+        >
+          Finding the latest direct installer…
+        </p>
+      )}
     </div>
   );
 }

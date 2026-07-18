@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import {
   detectPlatform,
   formatBytes,
+  installCommand,
   pickDownload,
   type GithubRelease,
 } from "../src/lib/githubRelease";
@@ -12,6 +13,7 @@ const release: GithubRelease = {
   assets: [
     asset("PolyUI-0.20.11-linux-arm64.AppImage", 99_105_288),
     asset("PolyUI-0.20.11-linux-x64.AppImage", 100_940_280),
+    asset("PolyUI-0.20.11-linux-x64.deb", 26_553_260),
     asset("PolyUI-0.20.11-macos-universal.dmg", 25_834_572),
     asset("PolyUI-0.20.11-windows-x64-ollama-setup.exe", 12_933_871),
     asset("PolyUI-0.20.11-windows-x64-setup.exe", 16_635_583),
@@ -49,7 +51,12 @@ describe("detectPlatform", () => {
 describe("pickDownload", () => {
   test("selects the preferred installer for each desktop OS", () => {
     expect(pickDownload(release, "macos")?.asset.name).toEndWith(".dmg");
-    expect(pickDownload(release, "linux")?.asset.name).toEndWith("linux-x64.AppImage");
+    expect(pickDownload(release, "linux", "deb")?.asset.name).toEndWith(
+      "linux-x64.deb",
+    );
+    expect(pickDownload(release, "linux", "appimage")?.asset.name).toEndWith(
+      "linux-x64.AppImage",
+    );
     expect(pickDownload(release, "windows")?.asset.name).toEndWith(
       "windows-x64-setup.exe",
     );
@@ -61,6 +68,19 @@ describe("pickDownload", () => {
     expect(pickDownload(release, "unsupported")).toBeNull();
     expect(pickDownload({ ...release, assets: [] }, "linux")).toBeNull();
   });
+});
+
+test("returns the official README install command for each desktop OS", () => {
+  expect(installCommand("linux")).toBe(
+    "curl -fsSL https://raw.githubusercontent.com/monolabsdev/poly-ui/main/scripts/install.sh | sh",
+  );
+  expect(installCommand("macos")).toBe(
+    "curl -fsSL https://raw.githubusercontent.com/monolabsdev/poly-ui/main/scripts/install.sh | sh",
+  );
+  expect(installCommand("windows")).toBe(
+    "irm https://raw.githubusercontent.com/monolabsdev/poly-ui/main/scripts/install.ps1 | iex",
+  );
+  expect(installCommand("unsupported")).toBeNull();
 });
 
 test("formats binary file sizes", () => {

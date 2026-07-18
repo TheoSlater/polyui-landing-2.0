@@ -1,4 +1,5 @@
 export type Platform = "macos" | "windows" | "linux" | "unsupported" | "unknown";
+export type LinuxPackage = "deb" | "appimage";
 
 export type NavigatorData = {
   platform: string;
@@ -22,8 +23,13 @@ export type GithubRelease = {
 export type DownloadTarget = {
   asset: GithubAsset;
   label: "Linux" | "macOS" | "Windows";
-  format: "AppImage" | "DMG" | "EXE";
+  format: "AppImage" | "DEB" | "DMG" | "EXE";
 };
+
+const UNIX_INSTALL_COMMAND =
+  "curl -fsSL https://raw.githubusercontent.com/monolabsdev/poly-ui/main/scripts/install.sh | sh";
+const WINDOWS_INSTALL_COMMAND =
+  "irm https://raw.githubusercontent.com/monolabsdev/poly-ui/main/scripts/install.ps1 | iex";
 
 export function detectPlatform(data: NavigatorData): Platform {
   const platform = data.platform.toLowerCase();
@@ -44,11 +50,19 @@ export function detectPlatform(data: NavigatorData): Platform {
 export function pickDownload(
   release: GithubRelease,
   platform: Platform,
+  linuxPackage: LinuxPackage = "deb",
 ): DownloadTarget | null {
   const choices = {
     macos: { match: "macos-universal.dmg", label: "macOS", format: "DMG" },
     windows: { match: "windows-x64-setup.exe", label: "Windows", format: "EXE" },
-    linux: { match: "linux-x64.appimage", label: "Linux", format: "AppImage" },
+    linux:
+      linuxPackage === "deb"
+        ? ({ match: "linux-x64.deb", label: "Linux", format: "DEB" } as const)
+        : ({
+            match: "linux-x64.appimage",
+            label: "Linux",
+            format: "AppImage",
+          } as const),
   } as const;
 
   if (platform === "unsupported" || platform === "unknown") return null;
@@ -59,6 +73,12 @@ export function pickDownload(
   );
 
   return asset ? { asset, label: choice.label, format: choice.format } : null;
+}
+
+export function installCommand(platform: Platform): string | null {
+  if (platform === "windows") return WINDOWS_INSTALL_COMMAND;
+  if (platform === "linux" || platform === "macos") return UNIX_INSTALL_COMMAND;
+  return null;
 }
 
 export function formatBytes(bytes: number): string {

@@ -218,7 +218,7 @@ html::-webkit-scrollbar {
 }
 
 @keyframes demo-content-reveal {
-  from { opacity: 0; filter: blur(12px); }
+  from { opacity: 0; filter: blur(8px); }
   to { opacity: 1; filter: blur(0); }
 }
 
@@ -273,10 +273,10 @@ html::-webkit-scrollbar {
   animation-delay: 0.2s;
 }
 
-.demo-reveal-title { animation: demo-content-reveal 0.35s var(--ease-premium) 1.72s backwards; }
-.demo-reveal-sidebar { animation: demo-content-reveal 0.65s var(--ease-premium) 1.82s backwards; }
-.demo-reveal-conversation { animation: demo-content-reveal 0.5s var(--ease-premium) 1.94s backwards; }
-.demo-reveal-viewport { animation: demo-content-reveal 0.8s var(--ease-premium) 2.06s backwards; }
+.demo-reveal-title { animation: demo-content-reveal 0.9s var(--ease-soft) 1.78s backwards; }
+.demo-reveal-sidebar { animation: demo-content-reveal 1.15s var(--ease-soft) 1.92s backwards; }
+.demo-reveal-conversation { animation: demo-content-reveal 1s var(--ease-soft) 2.08s backwards; }
+.demo-reveal-viewport { animation: demo-content-reveal 1.25s var(--ease-soft) 2.24s backwards; }
 
 @media (min-width: 1280px) {
   .demo-chat-glint { left: 208px; }

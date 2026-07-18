@@ -33,10 +33,11 @@ test("demo sweeps its border before revealing content", () => {
   assert.match(demoParts, /demo-reveal-sidebar/);
   assert.match(demoParts, /demo-reveal-conversation/);
   assert.match(demoParts, /demo-reveal-viewport/);
-  assert.match(css, /\.demo-reveal-title[^}]*animation:[^;]*0\.35s[^;]*1\.72s/s);
-  assert.match(css, /\.demo-reveal-sidebar[^}]*animation:[^;]*0\.65s[^;]*1\.82s/s);
-  assert.match(css, /\.demo-reveal-conversation[^}]*animation:[^;]*0\.5s[^;]*1\.94s/s);
-  assert.match(css, /\.demo-reveal-viewport[^}]*animation:[^;]*0\.8s[^;]*2\.06s/s);
+  assert.match(css, /from \{ opacity: 0; filter: blur\(8px\); \}/);
+  assert.match(css, /\.demo-reveal-title[^}]*animation:[^;]*0\.9s[^;]*1\.78s/s);
+  assert.match(css, /\.demo-reveal-sidebar[^}]*animation:[^;]*1\.15s[^;]*1\.92s/s);
+  assert.match(css, /\.demo-reveal-conversation[^}]*animation:[^;]*1s[^;]*2\.08s/s);
+  assert.match(css, /\.demo-reveal-viewport[^}]*animation:[^;]*1\.25s[^;]*2\.24s/s);
   assert.doesNotMatch(hero, /<BlurIn delay=\{0\.3\}/);
-  assert.match(hero, /<BlurIn delay=\{2\.9\} className="flex flex-col/);
+  assert.match(hero, /<BlurIn delay=\{3\.55\} className="flex flex-col/);
 });

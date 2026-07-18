@@ -242,10 +242,14 @@ html::-webkit-scrollbar {
   border-radius: inherit;
   background: conic-gradient(
     from var(--demo-border-angle) at 50% 50%,
-    oklch(0.76 0.04 295 / 85%) 0deg,
+    oklch(0.98 0 0 / 90%) 0deg,
+    oklch(0.92 0 0) 3deg,
+    oklch(0.62 0 0 / 45%) 7deg,
     transparent 10deg,
     transparent 350deg,
-    oklch(0.76 0.04 295 / 85%) 360deg
+    oklch(0.62 0 0 / 45%) 353deg,
+    oklch(0.92 0 0) 357deg,
+    oklch(0.98 0 0 / 90%) 360deg
   );
   content: "";
   pointer-events: none;

@@ -22,6 +22,8 @@ test("demo sweeps its border before revealing content", () => {
   assert.match(css, /mask-composite:\s*exclude/);
   assert.match(css, /transparent 350deg/);
   assert.doesNotMatch(css, /oklch\(0\.98 0\.01 295\)/);
+  assert.match(css, /oklch\(0\.92 0 0\) 3deg/);
+  assert.match(css, /oklch\(0\.62 0 0 \/ 45%\) 7deg/);
   assert.doesNotMatch(css, /offset-path/);
   assert.match(css, /animation:\s*demo-border-glint 1\.5s linear/);
   assert.doesNotMatch(css, /@keyframes demo-glint-right/);

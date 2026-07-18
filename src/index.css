@@ -1,10 +1,9 @@
-@import url("https://api.fontshare.com/v2/css?f[]=general-sans@600&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
+@import "@fontsource-variable/inter";
 @import "@fontsource-variable/jetbrains-mono";
-@import "@fontsource-variable/newsreader/wght-italic.css";
+@import "@fontsource/redaction-35";
 
 /* Dark-locked page. Tokens copied from poly-ui/src/App.css `.dark` block so the
    demo window matches the real desktop app. Page background sits one step
@@ -117,16 +116,16 @@
   --radius-xl: var(--radius-xl);
   --radius-2xl: var(--radius-2xl);
   --radius-3xl: var(--radius-3xl);
-  --font-heading: "General Sans", sans-serif;
-  --font-accent: "Newsreader Variable", serif;
-  --font-sans: "Geist Variable", sans-serif;
+  --font-heading: "Inter Variable", sans-serif;
+  --font-accent: "Redaction 35", serif;
+  --font-sans: "Inter Variable", sans-serif;
   --font-mono: "JetBrains Mono Variable", monospace;
 }
 
 body {
   background: var(--page);
   color: var(--foreground);
-  font-family: "Geist Variable", "Inter", system-ui, sans-serif;
+  font-family: "Inter Variable", system-ui, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }

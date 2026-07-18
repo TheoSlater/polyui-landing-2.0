@@ -16,7 +16,7 @@ export function PolyDemoWindow() {
     <div className="demo-entrance overflow-hidden rounded-xl border border-border/80 bg-sidebar shadow-[0_24px_80px_-24px_rgb(0_0_0/0.8)]">
       <div className="demo-entrance-content">
         {/* Title bar with the app's Windows/Linux window controls */}
-        <div className="flex h-9 items-center bg-sidebar pl-3 pr-2">
+        <div className="demo-reveal-title flex h-9 items-center bg-sidebar pl-3 pr-2">
         <span className="hidden text-sm font-bold xl:block xl:flex-1">PolyUI</span>
         <span className="ml-auto flex items-center gap-1.5 text-muted-foreground">
           <span className="flex size-7 items-center justify-center rounded-lg">

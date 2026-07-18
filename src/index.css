@@ -242,10 +242,10 @@ html::-webkit-scrollbar {
   border-radius: inherit;
   background: conic-gradient(
     from var(--demo-border-angle) at 50% 50%,
-    oklch(0.98 0.01 295) 0deg,
-    transparent 24deg,
-    transparent 336deg,
-    oklch(0.98 0.01 295) 360deg
+    oklch(0.76 0.04 295 / 85%) 0deg,
+    transparent 10deg,
+    transparent 350deg,
+    oklch(0.76 0.04 295 / 85%) 360deg
   );
   content: "";
   pointer-events: none;
@@ -269,9 +269,10 @@ html::-webkit-scrollbar {
   animation-delay: 0.2s;
 }
 
-.demo-entrance-content {
-  animation: demo-content-reveal 0.5s var(--ease-premium) 1.75s both;
-}
+.demo-reveal-title { animation: demo-content-reveal 0.35s var(--ease-premium) 1.72s backwards; }
+.demo-reveal-sidebar { animation: demo-content-reveal 0.65s var(--ease-premium) 1.82s backwards; }
+.demo-reveal-conversation { animation: demo-content-reveal 0.5s var(--ease-premium) 1.94s backwards; }
+.demo-reveal-viewport { animation: demo-content-reveal 0.8s var(--ease-premium) 2.06s backwards; }
 
 @media (min-width: 1280px) {
   .demo-chat-glint { left: 208px; }

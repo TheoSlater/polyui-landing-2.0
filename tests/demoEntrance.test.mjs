@@ -5,6 +5,9 @@ import test from "node:test";
 const component = readFileSync("src/components/demo/PolyDemoWindow.tsx", "utf8");
 const css = readFileSync("src/index.css", "utf8");
 const hero = readFileSync("src/components/HeroWireframe.tsx", "utf8");
+const demoParts = ["DemoSidebar", "DemoConversation", "DemoBrowserViewport"]
+  .map((name) => readFileSync(`src/components/demo/${name}.tsx`, "utf8"))
+  .join("\n");
 
 test("demo sweeps its border before revealing content", () => {
   assert.match(component, /demo-entrance/);
@@ -16,11 +19,19 @@ test("demo sweeps its border before revealing content", () => {
   assert.doesNotMatch(component, /demo-border-glint/);
   assert.match(css, /conic-gradient/);
   assert.match(css, /mask-composite:\s*exclude/);
-  assert.match(css, /transparent 336deg/);
+  assert.match(css, /transparent 350deg/);
+  assert.doesNotMatch(css, /oklch\(0\.98 0\.01 295\)/);
   assert.doesNotMatch(css, /offset-path/);
   assert.match(css, /animation:\s*demo-border-glint 1\.5s linear/);
   assert.doesNotMatch(css, /@keyframes demo-glint-right/);
   assert.doesNotMatch(css, /conic-gradient\(from var\(--demo-sweep-angle\)/);
-  assert.match(css, /animation:\s*demo-content-reveal[^;]*1\.75s/);
+  assert.match(component, /demo-reveal-title/);
+  assert.match(demoParts, /demo-reveal-sidebar/);
+  assert.match(demoParts, /demo-reveal-conversation/);
+  assert.match(demoParts, /demo-reveal-viewport/);
+  assert.match(css, /\.demo-reveal-title[^}]*animation:[^;]*0\.35s[^;]*1\.72s/s);
+  assert.match(css, /\.demo-reveal-sidebar[^}]*animation:[^;]*0\.65s[^;]*1\.82s/s);
+  assert.match(css, /\.demo-reveal-conversation[^}]*animation:[^;]*0\.5s[^;]*1\.94s/s);
+  assert.match(css, /\.demo-reveal-viewport[^}]*animation:[^;]*0\.8s[^;]*2\.06s/s);
   assert.doesNotMatch(hero, /<BlurIn delay=\{0\.3\}/);
 });

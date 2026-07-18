@@ -27,3 +27,12 @@ test("hero uses only General Sans while website UI uses Manrope", () => {
   assert.equal((hero.match(/<span className="block">/g) ?? []).length, 2);
   assert.doesNotMatch(hero, /font-accent|font-serif|text-shadow|drop-shadow|bg-clip-text/);
 });
+
+test("GitHub CTA opens Poly UI repository in a new tab", () => {
+  const hero = readFileSync("src/components/HeroWireframe.tsx", "utf8");
+
+  assert.match(
+    hero,
+    /<Button variant="outline" size="lg" render={<a href="https:\/\/github\.com\/monolabsdev\/poly-ui" target="_blank" rel="noopener noreferrer" \/>} nativeButton={false}>/
+  );
+});

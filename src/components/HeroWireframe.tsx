@@ -29,7 +29,7 @@ export function HeroWireframe() {
                 <Download data-icon="inline-start" size={15} />
                 Download Poly UI
               </Button>
-              <Button variant="outline" size="lg" render={<a href="#" />} nativeButton={false}>
+              <Button variant="outline" size="lg" render={<a href="https://github.com/monolabsdev/poly-ui" target="_blank" rel="noopener noreferrer" />} nativeButton={false}>
                 <span data-icon="inline-start"><GithubIcon size={15} /></span>
                 View on GitHub
               </Button>

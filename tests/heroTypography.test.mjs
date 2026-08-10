@@ -36,3 +36,26 @@ test("GitHub CTA opens Poly UI repository in a new tab", () => {
     /<Button variant="outline" size="lg" render={<a href="https:\/\/github\.com\/monolabsdev\/poly-ui" target="_blank" rel="noopener noreferrer" \/>} nativeButton={false}>/
   );
 });
+
+test("hero fills the first viewport and centers its content", () => {
+  const hero = readFileSync("src/components/HeroWireframe.tsx", "utf8");
+
+  assert.match(hero, /min-h-\[calc\(100svh-3\.25rem\)\]/);
+  assert.match(hero, /relative flex[^"]*items-center/);
+  assert.match(hero, /mx-auto w-full[^"]*py-16[^"]*sm:py-24/);
+  assert.doesNotMatch(hero, /delay=\{3\.55\}/);
+});
+
+test("one subtle glow belongs only to the hero demo", () => {
+  const app = readFileSync("src/App.tsx", "utf8");
+  const hero = readFileSync("src/components/HeroWireframe.tsx", "utf8");
+  const footer = readFileSync("src/components/SiteFooter.tsx", "utf8");
+
+  assert.doesNotMatch(app, /GlowEffect|PAGE_GLOW_COLORS/);
+  assert.match(app, /min-h-dvh overflow-x-clip/);
+  assert.match(hero, /<GlowEffect/);
+  assert.match(hero, /scale=\{1\.18\}/);
+  assert.match(hero, /rounded-3xl opacity-50 blur-\[70px\]/);
+  assert.doesNotMatch(hero, /overflow-hidden/);
+  assert.doesNotMatch(footer, /bg-background/);
+});

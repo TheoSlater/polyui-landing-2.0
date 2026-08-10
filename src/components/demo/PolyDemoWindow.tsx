@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Minus, Square, X } from "lucide-react";
 import { DemoSidebar } from "./DemoSidebar";
 import { DemoConversation } from "./DemoConversation";
@@ -12,13 +12,28 @@ export function PolyDemoWindow() {
     () => window.matchMedia("(min-width: 1024px)").matches,
   );
 
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const syncViewport = (event: MediaQueryListEvent) => {
+      setViewportOpen(event.matches);
+    };
+
+    desktop.addEventListener("change", syncViewport);
+    return () => desktop.removeEventListener("change", syncViewport);
+  }, []);
+
   return (
-    <div className="demo-entrance overflow-hidden rounded-xl border border-border/80 bg-sidebar shadow-[0_24px_80px_-24px_rgb(0_0_0/0.8)]">
+    <div
+      role="group"
+      aria-label="Interactive product preview"
+      className="demo-entrance overflow-hidden rounded-xl border border-border/80 bg-sidebar shadow-[0_24px_80px_-24px_rgb(0_0_0/0.8)]"
+    >
       <div className="demo-entrance-content">
         {/* Title bar with the app's Windows/Linux window controls */}
         <div className="demo-reveal-title flex h-9 items-center bg-sidebar pl-3 pr-2">
-        <span className="hidden text-sm font-bold xl:block xl:flex-1">PolyUI</span>
-        <span className="ml-auto flex items-center gap-1.5 text-muted-foreground">
+        <span className="hidden text-sm font-bold xl:block xl:flex-1">Poly UI</span>
+        <span className="text-[11px] text-muted-foreground">Interactive preview</span>
+        <span aria-hidden="true" className="ml-auto flex items-center gap-1.5 text-muted-foreground">
           <span className="flex size-7 items-center justify-center rounded-lg">
             <Minus size={15} strokeWidth={1.5} />
           </span>

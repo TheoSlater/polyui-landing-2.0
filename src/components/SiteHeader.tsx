@@ -3,12 +3,14 @@ import { GithubIcon } from "@/components/GithubIcon";
 import { BlurIn } from "@/components/BlurIn";
 import { Button } from "@/components/ui/button";
 
+const DOCS_URL = "#/docs/overview";
+
 const NAV_LINKS = [
   { label: "Features", href: "#features" },
   { label: "Providers", href: "#providers" },
   {
     label: "Docs",
-    href: "https://github.com/monolabsdev/poly-ui#readme",
+    href: DOCS_URL,
     external: true,
   },
 ];
@@ -36,10 +38,16 @@ export function SiteHeader() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
-          <Button variant="outline" size="icon-sm" render={<a href="https://github.com/monolabsdev/poly-ui" target="_blank" rel="noopener noreferrer" aria-label="GitHub" />} nativeButton={false}>
+          <a
+            href={DOCS_URL}
+            className="flex min-h-11 items-center text-xs text-muted-foreground transition-colors hover:text-foreground md:hidden"
+          >
+            Docs
+          </a>
+          <Button className="size-11 md:size-7" variant="outline" size="icon-sm" render={<a href="https://github.com/monolabsdev/poly-ui" target="_blank" rel="noopener noreferrer" aria-label="GitHub" />} nativeButton={false}>
             <GithubIcon size={14} />
           </Button>
-          <Button size="sm" render={<a href="#downloads" />} nativeButton={false}>
+          <Button className="h-11 md:h-7" size="sm" render={<a href="#downloads" />} nativeButton={false}>
             <Download data-icon="inline-start" size={14} />
             Download
           </Button>

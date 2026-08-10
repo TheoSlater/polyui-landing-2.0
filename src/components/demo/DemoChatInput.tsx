@@ -1,12 +1,12 @@
 import { ArrowUp, Globe, Mic, MoreHorizontal, Plus } from "lucide-react";
 
 const iconButton =
-  "flex size-8 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-foreground/[0.06] hover:text-foreground sm:size-9";
+  "flex size-8 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground sm:size-9";
 
 /** Static default-chat composer matching the app's ChatInput. Display only. */
 export function DemoChatInput() {
   return (
-    <div className="w-full rounded-3xl border border-transparent bg-popover px-4 py-3 shadow-sm">
+    <div aria-hidden="true" className="pointer-events-none w-full select-none rounded-3xl border border-transparent bg-popover px-4 py-3 shadow-sm">
       <p className="min-h-8 pt-1 text-sm leading-6 text-muted-foreground">
         How can I help you today?
       </p>

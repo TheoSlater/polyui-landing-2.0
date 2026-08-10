@@ -11,17 +11,17 @@ test("page has working navigation and a keyboard skip target", () => {
   assert.doesNotMatch(header, /href="#"/);
   assert.match(header, /href: "#features"/);
   assert.match(header, /href: "#providers"/);
-  assert.match(header, /poly-ui#readme/);
+  assert.match(header, /#\/docs\/overview/);
 });
 
-test("site overrides reduced-motion preference for branded motion", () => {
+test("site honors reduced-motion preference without removing branded motion", () => {
   const main = readFileSync("src/main.tsx", "utf8");
   const css = readFileSync("src/index.css", "utf8");
   const glow = readFileSync("src/components/ui/glow-effect.tsx", "utf8");
 
-  assert.match(main, /<MotionConfig reducedMotion="never">/);
-  assert.doesNotMatch(css, /prefers-reduced-motion: reduce/);
-  assert.doesNotMatch(glow, /useReducedMotion/);
+  assert.match(main, /<MotionConfig reducedMotion="user">/);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
+  assert.match(css, /scroll-behavior:\s*auto/);
   assert.match(glow, /animate=\{animations\[mode\]\}/);
 });
 
@@ -36,7 +36,7 @@ test("metadata and crawler policy use real local assets", () => {
   );
   assert.match(html, /name="twitter:card" content="summary_large_image"/);
   assert.ok(existsSync("public/robots.txt"));
-  assert.equal(readFileSync("public/robots.txt", "utf8"), "User-agent: *\nAllow: /\n");
+  assert.equal(readFileSync("public/robots.txt", "utf8").replaceAll("\r\n", "\n"), "User-agent: *\nAllow: /\n");
 });
 
 test("below-fold images reserve space and load lazily", () => {
@@ -46,4 +46,11 @@ test("below-fold images reserve space and load lazily", () => {
   assert.match(narrative, /width=\{24\}[\s\S]*height=\{24\}[\s\S]*loading="lazy"/);
   assert.match(narrative, /width=\{1733\}[\s\S]*height=\{1122\}[\s\S]*loading="lazy"/);
   assert.match(footer, /width=\{28\}[\s\S]*height=\{28\}[\s\S]*loading="lazy"/);
+});
+
+test("the document keeps its native scrollbar affordance", () => {
+  const css = readFileSync("src/index.css", "utf8");
+
+  assert.doesNotMatch(css, /scrollbar-width:\s*none/);
+  assert.doesNotMatch(css, /::-webkit-scrollbar/);
 });

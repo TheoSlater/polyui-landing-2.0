@@ -6,7 +6,7 @@ import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <MotionConfig reducedMotion="never">
+    <MotionConfig reducedMotion="user">
       <App />
     </MotionConfig>
   </StrictMode>,

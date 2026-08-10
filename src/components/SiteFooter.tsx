@@ -8,7 +8,7 @@ const productLinks = [
 
 export function SiteFooter() {
   return (
-    <footer className="overflow-hidden border-t border-border/60 bg-background/20">
+    <footer className="overflow-hidden border-t border-border/60">
       <div className="mx-auto max-w-6xl px-4 pt-28 sm:px-6 sm:pt-40">
         <div className="grid gap-16 sm:grid-cols-2 md:grid-cols-[1.5fr_0.75fr_0.75fr]">
           <div className="max-w-xs">
@@ -66,8 +66,10 @@ export function SiteFooter() {
 
         <div
           aria-hidden="true"
-          className="-mb-[0.16em] select-none whitespace-nowrap text-center font-heading text-[clamp(5rem,18vw,14rem)] font-medium leading-[0.78] tracking-[-0.075em] text-foreground/[0.035]"
-        >Poly UI</div>
+          className="-mb-[0.16em] select-none whitespace-nowrap text-center font-heading text-[clamp(5rem,18vw,14rem)] font-medium leading-[0.78] tracking-[-0.04em] text-foreground/[0.035]"
+        >
+          Poly UI
+        </div>
       </div>
     </footer>
   );

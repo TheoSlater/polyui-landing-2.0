@@ -18,7 +18,7 @@ export function DemoBrowserViewport({
       aria-hidden={!open}
       inert={!open}
       className={cn(
-        "demo-reveal-viewport flex min-h-0 flex-col overflow-hidden border-border bg-sidebar transition-[width,opacity] duration-300",
+        "demo-reveal-viewport flex min-h-0 flex-col overflow-hidden border-border bg-sidebar transition-[opacity,transform] duration-300",
         "max-lg:absolute max-lg:inset-0 max-lg:z-10 max-lg:transition-[opacity,transform]",
         open
           ? "border-l max-lg:opacity-100 lg:w-[42%]"
@@ -41,7 +41,7 @@ export function DemoBrowserViewport({
       </header>
 
       <div className="flex h-11 shrink-0 items-center gap-2 border-b border-sidebar-border px-3">
-        <span className="flex items-center gap-0.5 text-muted-foreground/60">
+        <span aria-hidden="true" className="flex items-center gap-0.5 text-muted-foreground/60">
           <ArrowLeft size={15} />
           <ArrowRight size={15} />
           <RotateCw size={13} className="ml-1" />

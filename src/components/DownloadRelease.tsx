@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Check, Copy, Download } from "lucide-react";
+import { ArrowUpRight, Check, Copy, Download, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   detectPlatform,
@@ -75,6 +75,10 @@ export function DownloadRelease() {
   const target = release
     ? pickDownload(release, platform, linuxPackage)
     : null;
+  const installScriptUrl =
+    platform === "windows"
+      ? "https://github.com/monolabsdev/poly-ui/blob/main/scripts/install.ps1"
+      : "https://github.com/monolabsdev/poly-ui/blob/main/scripts/install.sh";
 
   async function copyCommand() {
     if (!command) return;
@@ -123,49 +127,9 @@ export function DownloadRelease() {
 
   return (
     <div className="space-y-10">
-      <div>
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <p className="text-xs font-medium text-foreground">Recommended</p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Install from your terminal
-            </p>
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={copyCommand}
-            aria-live="polite"
-          >
-            {copyState === "copied" ? (
-              <Check data-icon="inline-start" size={14} />
-            ) : (
-              <Copy data-icon="inline-start" size={14} />
-            )}
-            {copyState === "copied"
-              ? "Copied"
-              : copyState === "failed"
-                ? "Copy failed"
-                : "Copy command"}
-          </Button>
-        </div>
-        <div className="mt-4 overflow-x-auto border-y border-border/70 py-4">
-          <code className="select-all whitespace-nowrap font-mono text-xs text-foreground/85 sm:text-sm">
-            {command}
-          </code>
-        </div>
-        {copyState === "failed" ? (
-          <p className="mt-2 text-xs text-muted-foreground">
-            Select the command above and copy it manually.
-          </p>
-        ) : null}
-      </div>
-
       {platform === "linux" ? (
         <div>
-          <p className="text-xs text-muted-foreground">
-            Prefer a direct Linux package?
-          </p>
+          <p className="text-xs text-muted-foreground">Package format</p>
           <div
             role="group"
             aria-label="Linux distribution"
@@ -192,9 +156,11 @@ export function DownloadRelease() {
       ) : null}
 
       {release && target ? (
-        <div className="flex flex-col gap-8 border-t border-border/50 pt-8 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs text-muted-foreground">Direct installer</p>
+            <p className="text-xs font-medium text-foreground">
+              Recommended for most people
+            </p>
             <h3 className="mt-2 font-heading text-2xl font-medium tracking-[-0.04em] sm:text-3xl">
               Download for {target.label}
             </h3>
@@ -223,9 +189,10 @@ export function DownloadRelease() {
           </div>
         </div>
       ) : failed || (release && !target) ? (
-        <div className="flex flex-col gap-6 border-t border-border/50 pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-muted-foreground">
-            Need an installer instead? Choose one from the latest GitHub release.
+            We couldn&apos;t match an installer to this device. Choose one from
+            the latest GitHub release.
           </p>
           <Button
             variant="outline"
@@ -245,11 +212,68 @@ export function DownloadRelease() {
       ) : (
         <p
           aria-live="polite"
-          className="border-t border-border/50 pt-8 text-sm text-muted-foreground"
+          className="text-sm text-muted-foreground"
         >
-          Finding the latest direct installer…
+          Finding the latest installer…
         </p>
       )}
+
+      <details className="group border-t border-border/50 pt-8">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 text-sm font-medium text-foreground marker:content-none">
+          Advanced: install from your terminal
+          <span
+            aria-hidden="true"
+            className="text-muted-foreground transition-transform duration-200 group-open:rotate-45"
+          >
+            <Plus size={14} />
+          </span>
+        </summary>
+        <div className="pt-5">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <p className="max-w-lg text-xs leading-relaxed text-muted-foreground">
+              Review the install script before running this command.
+            </p>
+            <a
+              href={installScriptUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+            >
+              View script source
+            </a>
+          </div>
+          <div className="mt-4 flex items-center justify-between gap-4">
+            <p className="text-xs text-muted-foreground">Terminal command</p>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={copyCommand}
+              aria-live="polite"
+            >
+              {copyState === "copied" ? (
+                <Check data-icon="inline-start" size={14} />
+              ) : (
+                <Copy data-icon="inline-start" size={14} />
+              )}
+              {copyState === "copied"
+                ? "Copied"
+                : copyState === "failed"
+                  ? "Copy failed"
+                  : "Copy command"}
+            </Button>
+          </div>
+          <div className="mt-4 border-y border-border/70 py-4">
+            <code className="block select-all whitespace-pre-wrap break-all font-mono text-xs leading-relaxed text-foreground/85 sm:text-sm">
+              {command}
+            </code>
+          </div>
+          {copyState === "failed" ? (
+            <p className="mt-2 text-xs text-muted-foreground">
+              Select the command above and copy it manually.
+            </p>
+          ) : null}
+        </div>
+      </details>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import test from "node:test";
 const component = readFileSync("src/components/demo/PolyDemoWindow.tsx", "utf8");
 const css = readFileSync("src/index.css", "utf8");
 const hero = readFileSync("src/components/HeroWireframe.tsx", "utf8");
+const chatInput = readFileSync("src/components/demo/DemoChatInput.tsx", "utf8");
 const demoParts = ["DemoSidebar", "DemoConversation", "DemoBrowserViewport"]
   .map((name) => readFileSync(`src/components/demo/${name}.tsx`, "utf8"))
   .join("\n");
@@ -39,5 +40,20 @@ test("demo sweeps its border before revealing content", () => {
   assert.match(css, /\.demo-reveal-conversation[^}]*animation:[^;]*1s[^;]*2\.08s/s);
   assert.match(css, /\.demo-reveal-viewport[^}]*animation:[^;]*1\.25s[^;]*2\.24s/s);
   assert.doesNotMatch(hero, /<BlurIn delay=\{0\.3\}/);
-  assert.match(hero, /<BlurIn delay=\{3\.55\} className="flex flex-col/);
+  assert.doesNotMatch(hero, /<BlurIn delay=\{3\.55\}/);
+});
+
+test("demo drawer follows breakpoint changes instead of preserving stale state", () => {
+  assert.match(component, /useEffect/);
+  assert.match(component, /addEventListener\("change",/);
+  assert.match(component, /removeEventListener\("change",/);
+  assert.match(component, /setViewportOpen\(event\.matches\)/);
+});
+
+test("demo labels its live controls and suppresses preview-only affordances", () => {
+  assert.match(component, /aria-label="Interactive product preview"/);
+  assert.match(component, />Interactive preview<\/span>/);
+  assert.match(chatInput, /aria-hidden="true"/);
+  assert.match(chatInput, /pointer-events-none/);
+  assert.doesNotMatch(chatInput, /hover:bg-/);
 });
